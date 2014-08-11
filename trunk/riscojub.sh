@@ -31,7 +31,7 @@ chtotal=2940
 # Ano / semestre atuais
 # Supoe-se que o relatorio so tenha dados ate o semestre anterior a esse
 anoatual=2014
-sematual=1
+sematual=2
 
 # Limite da diferenca (media_cursados-med_futura) para alunos em risco
 # Para considerar todos alunos, colocar limite bem alto, maior que carga horaria media por semestre
@@ -113,7 +113,7 @@ do
       # trancamentos. Exemplo: para aluno ingressante em 2006, em 2013/1 faltarão 2 semestres, 
       # em 2013/2 faltará 1 semestre
       calcMaxSem $INGR
-      falta=$[$maxsem+$tranca-($anoatual-$INGR)*2+$sematual-1]
+      falta=$[$maxsem+$tranca-(($anoatual-$INGR)*2+$sematual-1)]
       cursados=$[($anoatual-$INGR)*2+$sematual-1-$tranca]
 
       # Calcula med_cursada = ch_cursada / numero de semestres cursados
@@ -143,7 +143,8 @@ do
         # Ver conversoes bash 4 em http://stackoverflow.com/questions/2264428/
         prenom=`echo $NOME | cut -d' ' -f 1`
         prenom=${prenom,,}
-        prenom=${prenom[@]^}
+        prenom=${prenom^}
+        #prenom=${prenom[@]^} # nao funciona em bash 4.3.11(1)-release ?!
         # Registra aluno em risco
 	echo $M,$NOME,$prenom,$SEXO,,$INGR,$maxsem,$tranca,$cursados,$TCH,$med_cursada,$medfut,$dif >> $arqRisco
       fi
