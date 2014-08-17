@@ -62,7 +62,7 @@ function calcMaxSem {
 # Filtra relatorio (CSV com campos de texto separados COM aspas)
 #grep ",\"Aprovado \|,\"Dispensado \|,\"Aproveitamento" $relatorio | while read a; do echo $a,A; done > $tmpAprov
 # Filtra relatorio (CSV com campos de texto separados SEM aspas)
-grep ",Aprovado \|,Dispensado \|,Aproveitamento" $relatorio | grep -v ", Disciplinas de Outros Cursos" | while read a; do echo $a,A; done > $tmpAprov
+grep ",Aprovado \|,Dispensado \|,Aproveitamento" $relatorio | grep -v ",Disciplinas de Outros Cursos" | grep -v ",Disciplinas de Currículos Anteriores" | while read a; do echo $a,A; done > $tmpAprov
 grep "Trancamento Total" $relatorio | while read a; do echo $a,T; done > $tmpTranc
 
 # Inicializa arquivos
